@@ -1,0 +1,211 @@
+% update 2026-01-17
+
+
+%\documentclass[10.5pt]{extarticle}
+
+\setcounter{secnumdepth}{5}
+\usepackage{titlesec}
+\usepackage{fvextra}
+\usepackage{array}
+\usepackage[super,numbers]{natbib} % 参考文献样式
+\usepackage{geometry}
+\geometry{a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\usepackage{pdfpages} % 导入pdf作为封面
+
+\usepackage{float}
+\usepackage{enumitem}
+\usepackage{url}
+\usepackage{pgfplots} % 支持绘图
+\pgfplotsset{compat=1.18} % 设置 pgfplots 的兼容性版本
+
+\input{Languages_config}  %语言配置
+
+\input{Math_config}       %数学公式配置
+
+\usepackage{graphicx} % 支持插入图片
+\usepackage{pgf} % 支持 pgf 格式图片
+% 设置 PGF 使用衬线字体
+
+\usepackage{hyperref} % 支持超链接
+\pdfstringdefDisableCommands{
+  \def\\{ }  % 在PDF书签中将\\替换为空格
+  \def\hs{ } % 在PDF书签中忽略\hs
+}
+\hypersetup{colorlinks=true, linkcolor=black, citecolor=black, urlcolor=black}
+
+
+
+
+
+\usepackage{multicol} % 支持多栏布局
+\usepackage{textcomp}
+\usepackage{comment}
+
+\input{Table_config} %表格配置
+
+
+
+
+
+\usepackage{fancyhdr} % 支持页眉页脚
+\usepackage{lipsum} % 用于生成示例文本
+\usepackage{listings}
+\renewcommand{\lstlistingname}{コード}
+\usepackage[newfloat]{minted} % 支持代码高亮
+\setminted{
+    style=xcode,   % friendly / xcode / default 可以试试
+    fontsize=\footnotesize,
+    breaklines,
+    linenos,
+    numbersep=5pt,
+    autogobble,
+    frame=single
+}
+
+\usepackage{annotate-equations} % 支持公式注释
+\usepackage[dvipsnames]{xcolor}
+
+%---- Tikz 环境 ---- Tikzパッケージ ----
+\usepackage{tikz}
+\def\mathdefault#1{#1}
+\usetikzlibrary{arrows.meta} % 使用 TikZ 的箭头库
+\usetikzlibrary{positioning}
+\usetikzlibrary{angles, quotes}
+\usetikzlibrary{shapes, arrows, positioning}
+\usepackage{circuitikz} 
+\ctikzset{resistors/thickness=1}
+\ctikzset{grounds/thickness=1}
+
+
+% --- 定义图层 ---
+\pgfdeclarelayer{background}
+\pgfdeclarelayer{foreground}
+\pgfsetlayers{background,main,foreground}
+% --- 定义环境 overlayimage ---
+\newenvironment{overlayimage}[2][]{%
+  \begin{tikzpicture}[#1]
+    % 下层：背景输入的 PGF 图
+    \begin{pgfonlayer}{background}
+      \input{#2}%
+    \end{pgfonlayer}
+}{%
+  \end{tikzpicture}
+}
+
+\usepackage{xspace}
+\newcommand{\hs}{\hspace{0.8em}}  % 文本用 half-space
+\newcommand{\hd}{\hspace{0.5em}}  % 文本用 double-space
+%\NewDocumentCommand{\hl}{ O{yellow} m }{%高级命令
+%  \colorbox{#1}{#2}%
+%}
+
+
+
+
+
+
+
+
+
+%=== 参考文献与格式设置 === 参考文献とフォーマット設定 ===
+\renewcommand{\refname}{参考文献}   % 适用于 report, book
+\renewcommand{\bibname}{参考文献}    % 适用于 bibtex
+\bibliographystyle{plain}
+\renewcommand{\baselinestretch}{1.0}% % 设置行距为1.0倍
+
+\titleformat{\section}
+    {\bfseries\fontsize{12}{12}\selectfont} % 12pt标题,\hspace{0.8em}加粗 行距
+    {\thesection}{0.3em}{\raggedright}% 缩小编号和标题之间的间距
+\titleformat{\subsection}
+    {\bfseries\fontsize{11}{11}\selectfont} % 11pt标题,\hspace{0.8em}加粗 行距
+    {\thesubsection}{0.3em}{\raggedright} % 缩小编号和标题之间的间距
+\titleformat{\subsubsection}
+    {\bfseries\fontsize{11}{11}\selectfont} % 11pt标题,\hspace{0.8em}加粗 行距
+    {\thesubsubsection}{0.3em}{\raggedright} % 缩小编号和标题之间的间距 %第二个是让标题对齐左边
+
+\renewcommand\normalsize{\fontsize{10.5}{15}\selectfont}% % 正文字体大小为10.5pt,\hspace{0.8em}行距为10.5pt
+\renewcommand{\thesection}{\arabic{section}.} % 章节编号加点
+\renewcommand{\thesubsection}{\thesection\arabic{subsection}} % 避免多余的点
+
+\input{Caption_config}  %图表标题配置
+
+\newcommand{\insertpgf}[6][0.5]{ 
+    \begin{figure}[H] 
+        #5 
+        \centering 
+        \resizebox{#1\textwidth}{!}{\input{#2}
+        #6
+        } 
+        \caption{#3}\label{#4} 
+    \end{figure}
+}
+\newcommand{\insertpgfx}[5][0.5]{ 
+    \begin{figure}[H] 
+        #4 
+        \centering 
+        \resizebox{#1\textwidth}{!}{\input{#2}
+        #5
+        }\label{#3} 
+    \end{figure}
+}
+
+
+
+
+%用法:\insertpgf{発表/実験1.pgf}{実験1：各波長の$I$-$V$特性}{fig:exp1}{\vspace{-3em}}
+\newcommand{\insertpng}[5][0.5]{
+    \begin{figure}[H]
+        #5
+        \centering
+        \includegraphics[width=#1\textwidth]{#2}
+        \caption{#3}\label{#4}
+    \end{figure}
+}
+
+\newcommand{\insertpdf}[5][0.5]{
+    \begin{figure}[H]
+        #5
+        \centering
+        \includegraphics[width=#1\textwidth]{#2}
+        \caption{#3}\label{#4}
+    \end{figure}
+}
+
+\newcommand{\insertpair}[6][0.45]{%
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \pgfimg[#1]{#2}{#3}
+        \end{minipage}\hfill
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \pgfimg[#1]{#4}{#5}
+        \end{minipage}
+        \caption{#6}\label{fig:pair}
+    \end{figure}
+}
+\newcommand{\NaturalElementTextFormat}[4]
+{
+  \begin{minipage}{2.3cm}
+    \centering
+      \textbf{#1}
+      \linebreak \linebreak
+      {\Huge \textbf{{#3}}}
+      \linebreak
+       {#4}
+      \linebreak
+      {\small {#2}} 
+  \end{minipage}
+}
+
+
+%
+%{\LARGE\bfseries 連続体力学期末レポート \par}
+%\vskip 1em
+%{\large 黄宏迪 \par}
+%{\large 1224038 \par}
+%\vskip 1em
+%{\large \the\year 年\the\month 月\the\day 日 \par}
+
+

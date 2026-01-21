@@ -1,0 +1,47 @@
+% updated 2026-01-03
+% Table configuration 表格配置 表の設定
+%=== 表格支持 === 表サポート ===
+%依赖检查
+% 检查宏包是否存在
+\IfFileExists{booktabs.sty}{%
+    \typeout{ booktabs宏包已安装}%
+}{%
+    \PackageError{宏包缺失}{%
+         booktabs.sty 未找到%
+    }{%
+        请安装 booktabs 宏包，或联系模板维护者。\MessageBreak % chktex 1
+    }
+}
+\IfFileExists{threeparttable.sty}{%
+    \typeout{ threeparttable宏包已安装}%
+}{%
+    \PackageError{宏包缺失}{%
+         threeparttable.sty 未找到%
+    }{%
+        请安装 threeparttable 宏包，或联系模板维护者。\MessageBreak % chktex 1
+    }
+}
+\IfFileExists{multirow.sty}{%
+    \typeout{ multirow宏包已安装}%
+}{%
+    \PackageError{宏包缺失}{%
+         multirow.sty 未找到%
+    }{%
+        请安装 multirow 宏包，或联系模板维护者。\MessageBreak % chktex 1
+    }
+}
+\IfFileExists{longtable.sty}{%
+    \typeout{ longtable宏包已安装}%
+}{%
+    \PackageError{宏包缺失}{%
+         longtable.sty 未找到%
+    }{%
+        请安装 longtable 宏包，或联系模板维护者。\MessageBreak % chktex 1
+    }
+}
+%加载宏包
+\usepackage{booktabs} % 支持表格
+\usepackage{threeparttable} % 支持表格注释
+\usepackage{multirow} % 支持表格多行合并
+\usepackage{longtable} % 支持跨页表格
+\usepackage{array} % 支持自定义列宽和对齐方式

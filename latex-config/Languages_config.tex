@@ -1,0 +1,96 @@
+% updated 2026-01-03
+% Language and font configuration 语言和字体配置 言語とフォントの設定
+
+% region ==== 字体设置 ==== フォント設定 ====
+% 基于 fontspec 和 xeCJK 宏包
+% 实现英语, 日语, 中文混排  
+% 英語, 日本語, 中国語 の混在を実現
+%
+% —— 欧文字体 —— 英語フォント —— 
+% 设置英文的主字体、无衬线字体和等宽字体
+% mainfont: 主字体 (serif)
+% sansfont: 无衬线字体 (sans-serif)
+% monofont: 等宽字体 (monospace)
+%—— 日本語字体 —— 日本語フォント —— 
+% setlength: \parindent 设置段落缩进 段落冒頭のインデント
+% indentfirst: 
+%     开启section后第一段的段首空格 section後の最初の段落もインデント 
+%     注意：正式论文不一定需要, 可根据需要选择是否使用 注意: 正式な論文では必ずしも必要ではないので, 必要に応じて使用するかどうかを選択可能
+% package xeCJK: 支持中日韩字体 日中韓フォントサポート
+% xeCJKsetup: auto fallback 优先加载日语, 没有的字体则自动回退到中文字体 多言語混在の自動フォントフォールバック機能を有効化
+%—— 中文字体 —— 中国語フォント —— 
+%—— 纯中文环境 ——
+
+
+% 检查宏包是否存在模版
+%\IfFileExists{ceshi.sty}{%
+%    \typeout{ ceshi 宏包已安装}%
+%}{%
+%    \typeout{PackageError 指令测试}%
+%    \PackageError{宏包缺失}{%
+%         ceshi.sty 未找到%
+%    }{%
+%        请安装 ceshi 宏包，或联系模板维护者。\MessageBreak % chktex 1
+%    }
+%}
+
+%依赖检查
+% 检查宏包是否存在
+\IfFileExists{fontspec.sty}{%
+    \typeout{ fontspec 宏包已安装}%
+}{%
+    \PackageError{宏包缺失}{%
+         fontspec.sty 未找到%
+    }{%
+        请安装 fontspec 宏包，或联系模板维护者。\MessageBreak % chktex 1
+    }
+}
+\IfFileExists{xeCJK.sty}{%
+    \typeout{ xeCJK 宏包已安装}%
+}{%
+    \PackageError{宏包缺失}{%
+         xeCJK.sty 未找到%
+    }{%
+        请安装 xeCJK 宏包，或联系模板维护者。\MessageBreak % chktex 1
+    }
+}
+\IfFileExists{indentfirst.sty}{%
+    \typeout{ indentfirst 宏包已安装}%
+}{%
+    \PackageError{宏包缺失}{%
+         indentfirst.sty 未找到%
+    }{%
+        请安装 indentfirst 宏包，或联系模板维护者。\MessageBreak % chktex 1
+    }
+}
+
+% 英语 / 欧文
+\usepackage{fontspec}
+\setmainfont{Times New Roman}
+\setsansfont{Helvetica}
+\setmonofont{Courier New}
+
+% 日语 / 日本語
+\setlength{\parindent}{10.5pt} % 设置段落缩进
+\usepackage{indentfirst} 
+\usepackage{xeCJK} 
+\punctstyle{quanjiao}
+%草稿: 进阶写法 \usepackage[AutoFakeBold=true, AutoFakeSlant=true]{xeCJK}
+\xeCJKsetup{AutoFallBack=true}
+\setCJKmainfont[BoldFont=YuMincho Demibold]{YuMincho Medium}
+\setCJKsansfont{Hiragino Sans W5}
+\setCJKmonofont{Hiragino Sans W3}
+
+% 中文 / 中国語
+\setCJKfallbackfamilyfont{\CJKrmdefault}{Songti SC} 
+\setCJKfallbackfamilyfont{\CJKsfdefault}{Heiti SC} 
+\setCJKfallbackfamilyfont{\CJKttdefault}{PingFang SC}
+% 定义中文字体族
+\setCJKfamilyfont{CNfont_songti}[BoldFont=Songti SC Black]{Songti SC}
+\setCJKfamilyfont{CNfont_heiti}{Heiti SC}
+\setCJKfamilyfont{CNfont_pingfangti}{PingFang SC}
+\NewDocumentEnvironment{Chinese}{}{%
+    \xeCJKsetup{AutoFallBack=true}%
+    \CJKfamily{CNfont_songti}
+}{}
+% endregion

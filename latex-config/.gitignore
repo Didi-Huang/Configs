@@ -1,0 +1,6 @@
+# Latex 配置管理仓库
+# 忽略系统文件和测试生成的文件
+*.code-workspace
+.DS_Store
+outputs/
+草稿/

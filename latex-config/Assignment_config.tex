@@ -1,0 +1,70 @@
+% updete 14/01/2026
+% configuration for assignment (nikuni's lesson)
+
+
+
+
+
+\input{Languages_config} %语言配置
+\input{Math_config}      %数学配置
+
+
+\usepackage{booktabs}
+\usepackage{ifthen} % 提供条件判断
+\usepackage{float}
+\usepackage{geometry}
+\geometry{a4paper, left=1.5cm, right=1.5cm, top=3.5cm, bottom=1.5cm}
+% --- TikZ 设置 ---
+\usepackage{tikz}
+\def\mathdefault#1{#1}
+\usetikzlibrary{arrows.meta} % 使用 TikZ 的箭头库
+\usetikzlibrary{positioning}
+\usetikzlibrary{angles, quotes}
+\usetikzlibrary{shapes, arrows, positioning}
+\usepackage{circuitikz} 
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.18}
+\pgfmathsetmacro{\zZero}{5} 
+
+
+\usepackage{lastpage}
+\usepackage[dvipsnames]{xcolor}
+\definecolor{myorange}{HTML}{FBB034}
+\definecolor{darkgreen}{RGB}{29, 58, 50}
+\usepackage[most]{tcolorbox}
+\usepackage{array}
+\usepackage{enumerate}
+\usepackage{everypage} % 关键宏包
+
+\renewcommand{\arraystretch}{1.2} % 增加表格行高
+
+% 授業日（可以在各个作业文件里覆盖）
+\providecommand{\ClassDate}{x 月 x 日}
+
+% 封装表格命令
+\newcommand{\studentheader}{%
+\large
+{
+    \color{black}
+\begin{tabular}{|ccccccc|c|c|c|} % chktex 44
+\hline % chktex 44
+\multicolumn{7}{|c|}{{\sffamily 学籍番号}}                                                                                                                               & {\sffamily 名前}  & {\sffamily 授業日}   &  \,{\sffamily ページ数}\,  \\ \hline % chktex 44
+\multicolumn{1}{|c|}{1} & \multicolumn{1}{c|}{2} & \multicolumn{1}{c|}{2} & \multicolumn{1}{c|}{4} & \multicolumn{1}{c|}{0} & \multicolumn{1}{c|}{3} & 8 & \qquad 黄宏迪 \qquad \, & \ClassDate & \thepage\ /\ \pageref{LastPage}  \\ \hline % chktex 44 %chktex 1
+\end{tabular}
+}
+}
+
+
+\AddEverypageHook{%
+  \hspace{-1.7cm} 
+  \ifthenelse{\value{page}=1}%
+    {}% 如果是第一页就什么都不做
+    {%
+      \studentheader{}
+    }%
+}
+
+\NewDocumentCommand{\hl}{ O{yellow} m }{%高级命令
+  \colorbox{#1}{#2}%
+}
+\newcommand{\hs}{\hspace{0.8em}}  % 文本用 half-space

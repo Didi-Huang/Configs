@@ -1,0 +1,143 @@
+% updated 2026-01-09
+% Notebook configuration 笔记本配置 ノートブックの設定
+% 现在现有的配置是适合documentclass article的，之后要改为notebook或者book类
+% 量子力学笔记本目前的documentclass是extarticle
+% 之后还要继续把 颜色配置等分离出去
+% 目前的配置文件结构如下：
+
+% 结构:
+
+
+
+%\documentclass[10.5pt]{article}
+\usepackage{multicol}
+\setlength{\columnsep}{20pt} % 两栏之间的间距
+\setlength{\columnseprule}{0.4pt} % 中间竖线宽度，默认是 0 表示无
+
+
+\input{Languages_config} % 语言配置
+\input{Math_config}      % 数学配置
+\input{Table_config}     % 表格配置
+\numberwithin{equation}{subsection} % 公式编号按小节重新编号
+\numberwithin{table}{subsection}    % 表编号按小节重新编号
+
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{caption}
+\usepackage{titlesec}
+\usepackage{booktabs}
+\usepackage{xparse}
+\usepackage{pdfpages}
+\usepackage{xcolor}
+\usepackage[svgnames]{xcolor} 
+\usepackage{tikz}
+\usetikzlibrary{shapes}
+\usepackage{circuitikz}
+\usepackage{pgfplots}
+
+\usepackage{lipsum} % 用于生成示例文本
+\usepackage{listings}
+%region ===== 颜色设置 ===== カラー設定 =====
+\usepackage[dvipsnames]{xcolor}
+\definecolor{tusgreen}{RGB}{0, 153, 0}
+\definecolor{mygold}{RGB}{255, 242, 213}
+\definecolor{mydarkgreen}{RGB}{29, 58, 50}
+\definecolor{myorange}{HTML}{FBB034}
+\definecolor{DarkGreen}{RGB}{29, 58, 50}
+%endregion
+\usepackage{float}
+\usepackage{cuted}
+\usepackage{textgreek}
+\usepackage[most]{tcolorbox}
+% \usepackage{pdfcomment} % 用于添加 PDF 注释和提示 和 \hl冲突, 和hyperref冲突
+\usepackage{comment}
+
+% ———— 特效 ————
+\usepackage{shadowtext}
+\shadowoffset{16pt} % 阴影偏移
+\shadowcolor{gray} % 阴影颜色
+
+\pgfplotsset{compat=1.18} % 可选版本
+\usepackage{enumitem}
+\geometry{a4paper, left=2.5cm, right=2.5cm, top=2.5cm, bottom=2.5cm}
+\usepackage[unicode,colorlinks=true,linkcolor=DarkGreen, urlcolor=DarkGreen,citecolor=DarkGreen]{hyperref}
+\hypersetup{
+    linktoc=all,        % 编号和标题都可点击
+    CJKbookmarks=true   % 中文书签支持
+}
+\usepackage{fancyhdr}
+\newcommand{\hs}{\hspace{0.8em}}  % 文本用 half-space
+\newcommand{\hd}{\hspace{0.5em}}  % 文本用 half-space
+\renewcommand{\contentsname}{{\CJKfontspec{FZDaBiaoSong-B06S}\fontsize{40}{45}\selectfont 目录}}
+
+\NewDocumentCommand{\hl}{ O{yellow} m }{%高级命令
+  \colorbox{#1}{#2}%
+}
+
+% 定义 VSCode 风格颜色
+\definecolor{vscBackground}{RGB}{30,30,30}
+\definecolor{vscPlain}{RGB}{220,220,220}
+\definecolor{vscKeyword}{RGB}{86,156,214}
+\definecolor{vscString}{RGB}{206,145,120}
+\definecolor{vscComment}{RGB}{87,166,74}
+\definecolor{gray}{RGB}{150,150,150}
+\lstset{
+  language=Python,
+  backgroundcolor=\color{vscBackground},
+  basicstyle=\ttfamily\footnotesize\color{vscPlain},
+  keywordstyle=\color{vscKeyword}\bfseries,
+  stringstyle=\color{vscString},
+  commentstyle=\color{vscComment}\itshape,
+  numberstyle=\tiny\color{gray},
+  numbers=left,
+  stepnumber=1,
+  frame=single,
+  breaklines=true,
+  tabsize=4,
+  showstringspaces=false,
+  captionpos=b
+}
+\usepackage{minted}  % 需要 -shell-escape
+
+% MonokaiPro 背景
+\definecolor{monokai-bg}{RGB}{39,40,34}
+\setminted{
+    style=xcode,   % friendly / xcode / default 可以试试
+    fontsize=\footnotesize,
+    breaklines,
+    linenos,
+    numbersep=5pt,
+    autogobble,
+    frame=single
+}
+
+\renewcommand{\lstlistingname}{コード}
+
+\newcommand{\eq}[1]{
+    \begin{equation}
+        \begin{split}
+            #1 
+        \end{split}
+    \end{equation}
+}
+\newcommand{\eqx}[1]{
+    \[
+        \begin{split}
+            #1
+        \end{split}
+    \]
+}
+\newcommand{\eqkk}[2]{
+    \begin{tcolorbox}[colback=white!95!myorange, colframe=myorange!80!black, title=#2]
+    \begin{align}
+    #1
+    \end{align}
+    \end{tcolorbox}
+}
+\newcommand{\eqxkk}[2]{
+    \begin{tcolorbox}[colback=white!95!myorange, colframe=myorange!80!black, title=#2]
+    \begin{align*}
+    #1
+    \end{align*}
+    \end{tcolorbox}
+}
