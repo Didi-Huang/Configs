@@ -1,0 +1,14 @@
+# .config 仓库
+.DS_Store
+*.code-workspace
+.vscode/
+
+# nvim
+tt.*
+.tests
+doc/tags
+debug
+.repro
+foo.*
+*.log
+data
