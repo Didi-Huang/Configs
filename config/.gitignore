@@ -12,3 +12,6 @@ debug
 foo.*
 *.log
 data
+
+# 敏感信息
+apps.json
