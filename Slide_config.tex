@@ -1,0 +1,226 @@
+% update: 2026-01-17
+%\documentclass[aspectratio=43, 12pt]{beamer}
+
+%region ===== 基础编码和引擎设置 ===== 基本的なエンジンとエンコード =====
+\usepackage[utf8]{inputenc} % UTF-8 字符编码 --- 文字コード UTF-8 ---
+\usepackage[T1]{fontenc}    % 字体编码 --- フォントエンコード ---
+\usepackage{expl3}          % LaTeX3 编程环境 --- LaTeX3 プログラミング環境 ---
+%endregion
+
+\input{Languages_config}  %语言配置
+
+\input{Math_config}       %数学公式配置
+%\setlength{\jot}{0.4ex} % 调整多行公式行间距 slide里面要缩小行距节省空间
+
+
+%region ===== 颜色设置 ===== カラー設定 =====
+\usepackage[dvipsnames]{xcolor}
+\definecolor{tusgreen}{RGB}{0, 153, 0}
+\definecolor{mygold}{RGB}{255, 242, 213}
+\definecolor{darkgreen}{RGB}{29, 58, 50}
+\definecolor{darkred}{RGB}{139, 0, 0}
+%endregion
+
+
+%region ===== 图片和绘图支持 ===== 画像と描画サポート =====
+%---- Tikz 环境 ---- Tikzパッケージ ----
+\usepackage{tikz}
+\def\mathdefault#1{#1}
+\usetikzlibrary{arrows.meta} % 使用 TikZ 的箭头库
+\usetikzlibrary{positioning}
+\usetikzlibrary{angles, quotes}
+\usetikzlibrary{shapes, arrows, positioning}
+\usepackage{circuitikz} 
+\ctikzset{resistors/thickness=1}
+\ctikzset{grounds/thickness=1}
+
+
+
+% ---- 图片支持 ---- 画像サポート ----
+\usepackage{graphicx} % 支持插入图片
+\usepackage{pgf} % 支持 pgf 格式图片
+\usepackage{array}
+\usepackage{cancel} % 支持公式删除线
+\usepackage{pgfplots} % 支持绘图
+%endregion
+
+%region ===== Beamer 设置 ===== Beamer設定 =====
+%---- 基础設定 ---- 基本設定 ----
+\pgfplotsset{compat=1.18} % 设置 pgfplots 的兼容性版本
+\usetheme{Madrid} % 使用 Madrid 主题
+%\useoutertheme{miniframes} % 使用 smoothbars 外观主题, 备用方案: miniframes
+
+\usefonttheme{professionalfonts} %开启衬线字体
+\usefonttheme{serif} %开启衬线字体
+\setbeamercolor{structure}{fg=darkgreen}
+\setbeamercolor{frametitle}{fg=white, bg=darkgreen}
+\setbeamercolor{item}{fg=darkgreen}
+\setbeamercolor{block title}{bg=darkgreen, fg=white}
+\setbeamercolor{block body}{bg=white, fg=black}
+\setbeamercolor{title}{fg=white, bg=darkgreen}
+
+
+%---- 页脚设置 ---- フッター設定 ----
+%\setbeamertemplate{footline}[frame number] % 仅显示页码, 不要作者和标题
+\setbeamertemplate{frametitle continuation}{} % 取消续页标题
+\setbeamerfont{footline}{size=\scriptsize} % 页脚字体大小设为正常大小
+
+%---- 取消自动续页标题 ---- 自動継続フレームタイトルの無効化 ----
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\beamer@continueautobreak}{\frametitle}{\beamer@gobbleoptional}{}{\errmessage{failed to patch}}
+\patchcmd{\beamer@continueautobreak}{\framesubtitle}{\beamer@gobbleoptional}{}{\errmessage{failed to patch}}
+\makeatother
+
+% 34pt = 12%
+% ----- 设置字体大小 -----
+% ----- 封面 表紙 -----
+\setbeamerfont{title}{size=\fontsize{30}{36}\selectfont} % 封面主标题  タイトルページ
+\setbeamerfont{author}{size=\fontsize{14}{17}\selectfont}     % 作者 著者
+\setbeamerfont{institute}{size=\fontsize{10}{12}\selectfont}  % 机构  所属
+\setbeamerfont{date}{size=\fontsize{11}{13}\selectfont}       % 日期  日付
+
+% ----- 目录 目次 -----
+\setbeamerfont{section in toc}{size=\large} % 目录章节标题 セクション
+\setbeamerfont{subsection in toc}{size=\normalsize} % 目录小节标题 サブセクション
+\setbeamerfont{subsubsection in toc}{size=\normalsize} % 目录子小节标题 サブサブセクション 
+
+% ----- 正文 本文 -----
+\setbeamerfont{frametitle}{size=\fontsize{22}{26}\selectfont}   % 帧标题：22pt (65%) 
+\setbeamerfont{normal text}{size=\fontsize{12}{14.4}\selectfont}  % 正文：12pt (35%)
+\setbeamerfont{itemize/enumerate body}{size=\fontsize{16}{19}\selectfont} % 列表：16pt
+\setbeamerfont{itemize/enumerate subbody}{size=\fontsize{14}{17}\selectfont} % 子列表：14pt
+\setbeamerfont{block title}{size=\fontsize{18}{22}\selectfont}  % 块标题：18pt (53%)
+\setbeamerfont{block body}{size=\fontsize{15}{18}\selectfont}   % 块内容：15pt (44%)
+
+\usepackage{tikz} % 支持 TikZ 绘图
+\usetikzlibrary{calc}
+\def\mathdefault#1{#1}
+
+
+\usepackage{multicol} % 支持多栏布局
+\usepackage{hyperref} % 支持超链接
+\pdfstringdefDisableCommands{
+  \def\\{ }  % 在PDF书签中将\\替换为空格
+  \def\hs{ } % 在PDF书签中忽略\hs
+}
+\usepackage{textcomp}
+\usepackage{booktabs} % 支持表格
+\usepackage{caption} % 支持图表标题
+\usepackage[normalem]{ulem} % 支持下划线和删除线
+\usepackage{fancyhdr} % 支持页眉页脚
+\usepackage{lipsum} % 用于生成示例文本
+\usepackage{booktabs}  % 标准表格绘制
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd{\beamer@sectionintoc}
+  {\ifnum\c@tocdepth>0\relax}
+  {\ifnum\c@tocdepth>2\relax}{}{}
+\makeatother
+
+
+\usepackage{annotate-equations} % 支持公式注释
+
+\usepackage{comment}
+\usepackage{hyperref}
+\usepackage{multicol}% 支持多栏布局
+\usepackage{verbatim} % 支持代码块
+\usepackage{tabularx}
+\renewcommand{\arraystretch}{1.5}
+\newcommand{\hs}{\hspace{0.8em}}  
+\newcommand{\hd}{\hspace{0.5em}}  
+\NewDocumentCommand{\myhl}{ O{yellow} m }{%高级命令
+  \colorbox{#1}{#2}%
+}
+%标题:7.1%宽 实际: 7.5%宽
+%式子:5%宽 实际:5.5%宽
+%正文:3.5%宽 实际:3.7%宽
+%下角标:1.6%宽
+
+
+%---- 标题页设置 ---- タイトルページ設定 ----
+\newcommand{\mytoday}{$\the\year{}$ 年 $\the\month{}$ 月$\the\day{}$ 日}
+\title[電子回路基礎実験IV]{物理学実験報告：\\ 電子回路基礎実験IV}%标题 タイトル
+\author[黄\&下田]{$1224038$\ 黄\ 宏迪 \and $1224059$\ 下田\ 凜歩\\ 指導教員： ⾧田\ 朋\ 助教\vspace*{-0.5em} }% []只显示姓即可特定到个体因此简写　[]には名字だけ表示して個人を特定できるように省略
+\institute[]{東京理科大学 理学部第I部物理学科$2$年 A組\vspace*{-0.5em}} % 添加机构信息 []什么都不写以实现页脚不显示机构信息 []には何も書かないとフッターに所属が表示されない
+\date[]{\mytoday} % 添加日期 []什么都不写以实现页脚不显示日期 []には何も書かないとフッターに日付が表示されない
+%endregion
+
+%region ===== 图表标题设置 ===== 図表キャプション設定 =====
+%---- 图表标题设置 ---- 図表キャプション設定 ----
+\DeclareCaptionFont{ninept}{\fontsize{8}{8}\selectfont}%图表标题字体大小为9pt
+\captionsetup[figure]
+{
+  name=Figure,%or name=Figure,
+  labelsep=period,
+  font= ninept,
+  labelfont={bf},
+  textfont={normalfont}
+}
+\captionsetup[table]
+{
+  name=Table,%or name=Table,
+  labelsep=period,
+  font= ninept,
+  labelfont={bf},
+  textfont={normalfont}
+}
+%endregion
+
+% region ===== 自定义命令 ===== カスタムコマンド =====
+%---- 插入图片命令 ---- 画像挿入コマンド ----
+\newcommand{\insertpgf}[5][0.5]{
+    \begin{figure}[H]
+        #5
+        \centering
+%        {\pgfplotsset{#6}}
+        \resizebox{#1\textwidth}{!}{\input{#2}}
+        \caption*{#3}\label{#4}
+    \end{figure}
+}%用法:\insertpgf{発表/実験1.pgf}{実験1：各波長の$I$-$V$特性}{fig:exp1}{\vspace{-3em}}
+\newcommand{\insertpng}[5][0.5]{
+    \begin{figure}[H]
+        #5
+        \centering
+        \includegraphics[width=#1\textwidth]{#2}
+        \caption*{#3}\label{#4}
+    \end{figure}
+}
+
+\newcommand{\insertpdf}[5][0.5]{
+    \begin{figure}[H]
+        #5
+        \centering
+        \includegraphics[width=#1\textwidth]{#2}
+        \caption{#3}\label{#4}
+    \end{figure}
+}
+
+\newcommand{\insertpair}[6][0.45]{%
+    \begin{figure}[H]
+        \centering
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \pgfimg[#1]{#2}{#3}
+        \end{minipage}\hfill
+        \begin{minipage}{0.49\textwidth}
+            \centering
+            \pgfimg[#1]{#4}{#5}
+        \end{minipage}
+        \caption{#6}\label{fig:pair}
+    \end{figure}
+}
+\newcommand{\NaturalElementTextFormat}[4]
+{
+  \begin{minipage}{2.3cm}
+    \centering
+      \textbf{#1}
+      \linebreak \linebreak
+      {\Huge \textbf{{#3}}}
+      \linebreak
+       {#4}
+      \linebreak
+      {\small {#2}} 
+  \end{minipage}
+}
+% endregion

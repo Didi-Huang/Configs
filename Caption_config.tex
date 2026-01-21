@@ -1,0 +1,22 @@
+% update 2026-01-03
+% Caption configuration 标题配置 キャプションの設定
+% region === 图表标题设置 === 図表キャプション設定 ===
+\usepackage{caption}
+\DeclareCaptionFont{ninept}{\fontsize{9}{9}\selectfont}%图表标题字体大小为9pt
+\captionsetup[figure]
+{
+  name=図,%or name=Figure,
+  labelsep=period,
+  font= ninept,
+  labelfont={bf},
+  textfont={normalfont}
+}
+\captionsetup[table]
+{
+  name=表,%or name=Table,
+  labelsep=period,
+  font= ninept,
+  labelfont={bf},
+  textfont={normalfont}
+}
+% endregion

@@ -1,0 +1,53 @@
+% updated 2026-01-03
+% Math configuration 数学配置 数学の設定
+
+% region ==== 数学字体设置 ==== 数学フォント設定 ====
+% 基于 mathtools 和 unicode-math 宏包
+% 实现数学符号和字体的配置
+% 数学記号とフォントの設定を実現    
+%—— 数学扩展宏包 —— 数学拡張パッケージ —— 
+% mathtools: 数学扩展宏包, 提供更多数学符号和环境 数学拡張パッケージ, より多くの数学記号と環境を提供
+% unicode-math: 支持 Unicode 数学字体的宏包 Unicode 数学フォントをサポートするパッケージ
+% setmathfont: 设置数学字体
+% Symbol: 学校指定 Symbol 字体 用于数字和直立希腊字母 学校指定の Symbol フォントを使用して数字と直立ギリシャ文字を表示
+%—— 物理学符号宏包 —— 物理学記号パッケージ —— 
+% physics: 提供物理学相关的符号和命令 物理学に関連する記号とコマンドを提供  
+%依赖检查
+% 检查宏包是否存在
+\IfFileExists{mathtools.sty}{%
+    \typeout{ mathtools 宏包已安装}%
+}{%
+    \PackageError{宏包缺失}{%
+         mathtools.sty 未找到%
+    }{%
+        请安装 mathtools 宏包，或联系模板维护者。\MessageBreak % chktex 1
+    }
+}
+\IfFileExists{unicode-math.sty}{%
+    \typeout{ unicode-math 宏包已安装}%
+}{%
+    \PackageError{宏包缺失}{%
+         unicode-math.sty 未找到%
+    }{%
+        请安装 unicode-math 宏包，或联系模板维护者。\MessageBreak % chktex 1
+    }
+}
+\IfFileExists{physics.sty}{%
+    \typeout{ physics 宏包已安装}%
+}{%
+    \PackageError{宏包缺失}{%
+         physics.sty 未找到%
+    }{%
+        请安装 physics 宏包，或联系模板维护者。\MessageBreak % chktex 1
+    }
+}
+\usepackage{mathtools} % 数学扩展宏包 要在 unicode-math 之前加载
+\usepackage{unicode-math}
+\setmathfont{NewComputerModernMath-Regular}  % 主数学字体
+\setmathfont{Symbol}[ % 学校指定Symbol字体用于直立希腊字母
+    range=up/{greek,Greek},       % 直立希腊字母
+    Scale=MatchLowercase          % 保持大小匹配
+]
+\renewcommand{\familydefault}{\rmdefault}  % 强制使用衬线字体
+\usepackage{physics} % 物理学符号宏包
+% endregion
