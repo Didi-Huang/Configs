@@ -1,0 +1,11 @@
+# 个人配置集中管理 
+#gitignore
+
+.DS_Store
+*.code-workspace
+
+# Latex 副产物 
+*.outputs/
+!*.tex
+
+# nvim 
